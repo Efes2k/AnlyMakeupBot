@@ -8,8 +8,8 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
 import ru.taksebe.telegram.mentalCalculation.Utils;
 import ru.taksebe.telegram.mentalCalculation.enums.OperationEnum;
 
-public class AllCommand extends OperationCommand {
-    private Logger logger = LoggerFactory.getLogger(PlusCommand.class);
+public class AllCommand extends AbstractOperationCommand {
+    private Logger logger = LoggerFactory.getLogger(AllCommand.class);
 
     public AllCommand(String identifier, String description) {
         super(identifier, description);
@@ -19,11 +19,11 @@ public class AllCommand extends OperationCommand {
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         String userName = Utils.getUserName(user);
 
-        logger.debug(String.format("Пользователь %s. Начато выполнение команды %s", userName,
-                this.getCommandIdentifier()));
-        sendAnswer(absSender, chat.getId(), OperationEnum.getAllOperations(), this.getDescription(),
-                this.getCommandIdentifier(), userName);
-        logger.debug(String.format("Пользователь %s. Завершено выполнение команды %s", userName,
-                this.getCommandIdentifier()));
+    }
+
+    @Override
+    public void executeInner(AbsSender absSender, User user, Chat chat, String[] strings) {
+        sendDocument(absSender, chat.getId(), OperationEnum.getAllOperations(), this.getDescription(),
+                this.getCommandIdentifier(), getUserName(user));
     }
 }

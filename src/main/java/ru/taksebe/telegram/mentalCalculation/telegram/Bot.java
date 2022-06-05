@@ -11,10 +11,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.taksebe.telegram.mentalCalculation.Utils;
 import ru.taksebe.telegram.mentalCalculation.telegram.commands.operations.*;
 import ru.taksebe.telegram.mentalCalculation.telegram.commands.service.HelpCommand;
-import ru.taksebe.telegram.mentalCalculation.telegram.commands.service.SettingsCommand;
 import ru.taksebe.telegram.mentalCalculation.telegram.commands.service.StartCommand;
 import ru.taksebe.telegram.mentalCalculation.telegram.nonCommand.NonCommand;
-import ru.taksebe.telegram.mentalCalculation.telegram.nonCommand.Settings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,15 +26,11 @@ public final class Bot extends TelegramLongPollingCommandBot {
     private final String BOT_NAME;
     private final String BOT_TOKEN;
 
-    @Getter
-    private static final Settings defaultSettings = new Settings(1, 15,1);
     private final NonCommand nonCommand;
 
     /**
      * Настройки файла для разных пользователей. Ключ - уникальный id чата
      */
-    @Getter
-    private static Map<Long, Settings> userSettings;
 
     public Bot(String botName, String botToken) {
         super();
@@ -51,34 +45,18 @@ public final class Bot extends TelegramLongPollingCommandBot {
         register(new StartCommand("start", "Старт"));
         logger.debug("Команда start создана");
 
-        register(new PlusCommand("plus", "Сложение"));
-        logger.debug("Команда plus создана");
+        register(new GuideCommand("guide", "Гайд"));
+        logger.debug("Команда guied создана");
 
-        register(new MinusCommand("minus", "Вычитание"));
-        logger.debug("Команда minus создана");
+        register(new InstagramCommand("instagram", "Instagram"));
+        logger.debug("Команда instagram создана");
 
-        register(new PlusMinusCommand("plusminus", "Сложение и вычитание"));
-        logger.debug("Команда plusminus создана");
-
-        register(new MultiplicationCommand("multiply", "Умножение"));
-        logger.debug("Команда multiply создана");
-
-        register(new DivisionCommand("divide", "Деление"));
-        logger.debug("Команда divide создана");
-
-        register(new MultiplicationDivisionCommand("multdivide", "Умножение и деление"));
-        logger.debug("Команда multdivide создана");
-
-        register(new AllCommand("all", "4 действия"));
-        logger.debug("Команда all создана");
+        register(new TikTokCommand("tiktok", "TikTok"));
+        logger.debug("Команда tiktok создана");
 
         register(new HelpCommand("help","Помощь"));
         logger.debug("Команда help создана");
 
-        register(new SettingsCommand("settings", "Мои настройки"));
-        logger.debug("Команда settings создана");
-
-        userSettings = new HashMap<>();
         logger.info("Бот создан!");
     }
 
@@ -105,18 +83,6 @@ public final class Bot extends TelegramLongPollingCommandBot {
         setAnswer(chatId, userName, answer);
     }
 
-    /**
-     * Получение настроек по id чата. Если ранее для этого чата в ходе сеанса работы бота настройки не были установлены,
-     * используются настройки по умолчанию
-     */
-    public static Settings getUserSettings(Long chatId) {
-        Map<Long, Settings> userSettings = Bot.getUserSettings();
-        Settings settings = userSettings.get(chatId);
-        if (settings == null) {
-            return defaultSettings;
-        }
-        return settings;
-    }
 
     /**
      * Отправка ответа
