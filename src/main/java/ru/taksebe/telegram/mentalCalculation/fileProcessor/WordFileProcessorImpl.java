@@ -22,7 +22,7 @@ public class WordFileProcessorImpl {
     public FileInputStream createWordFile(List<String> taskList) throws IOException {
         //Формирование документа на основе шаблона - файла .docx из папки resources
         XWPFDocument doc = new XWPFDocument(getClass().getClassLoader().getResourceAsStream("Template.docx"));
-        setTaskListToXWPFDocument(doc, taskList);
+//        setTaskListToXWPFDocument(doc, taskList); //todo
         return createTempFile(doc);
     }
 
