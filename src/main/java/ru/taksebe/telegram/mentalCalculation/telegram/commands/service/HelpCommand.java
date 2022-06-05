@@ -24,8 +24,7 @@ public class HelpCommand extends ServiceCommand {
         logger.debug(String.format("Пользователь %s. Начато выполнение команды %s", userName,
                 this.getCommandIdentifier()));
         sendAnswer(absSender, chat.getId(), this.getCommandIdentifier(), userName,
-                "Я бот Василий, госпожа приказала сделать меня\n\n" +
-                        "❗*Список команд*\n" +
+                "❗*Список команд*\n" +
                         "/guide - получить гайд\n" +
                         "/instagram - Instagram с фоточками госпожи\n" +
                         "/tiktok - тики-токи, какое-то разврлечение человеков\n"                        );
