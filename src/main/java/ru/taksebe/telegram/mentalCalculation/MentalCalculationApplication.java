@@ -13,7 +13,7 @@ public class MentalCalculationApplication {
     public static void main(String[] args) {
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            botsApi.registerBot(new Bot("AnlimakeupBot", "5524586890:AAHqufLWfk9y1ym0uYcHrvy-mZO9OOqdu6E"));
+            botsApi.registerBot(new Bot("Anlima keupBot", "5524586890:AAHqufLWfk9y1ym0uYcHrvy-mZO9OOqdu6E"));
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
